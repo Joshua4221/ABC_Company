@@ -58,6 +58,8 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+        auth = FirebaseAuth.getInstance();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Creating Account...");
 
@@ -104,19 +106,22 @@ public class Registration extends AppCompatActivity {
                             progressDialog.dismiss();
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
-                            String userId = firebaseUser.getUid();
+                            String id = firebaseUser.getUid();
 
                             HashMap<String, String> myUser = new HashMap<>();
-                            myUser.put("id", userId);
+                            myUser.put("id", id);
                             myUser.put("gender", mSname);
-                            myUser.put("first_Name", mFname);
-                            myUser.put("last_Name", mEmail);
-                            myUser.put("email", mPassword);
+                            myUser.put("mFname", mFname);
+                            myUser.put("mEmail", mEmail);
+                            myUser.put("mPassword", mPassword);
 
                             database = FirebaseDatabase.getInstance();
                             reference = database.getReference("Assessment");
 
-                            reference.child(userId).setValue(myUser);
+                            reference.child(id).setValue(myUser);
+
+                            Intent intent = new Intent(Registration.this, Login.class);
+                            startActivity(intent);
 
 
                         } else {

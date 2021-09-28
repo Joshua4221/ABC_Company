@@ -53,6 +53,8 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        auth = FirebaseAuth.getInstance();
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Creating Account...");
 
